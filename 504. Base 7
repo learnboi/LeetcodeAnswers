@@ -1,0 +1,32 @@
+class Solution {
+    public String convertToBase7(int num) {
+        String str = "";
+        if (num < 7 && num >=-6) {
+            return str+num;
+        }
+        if (num < 0) {
+            num = num * (-1);
+            while (num >= 7) {
+                int div = num % 7;
+                num = num / 7;
+                str = str + div;
+                if (num < 7) {
+                    str = str + num;
+                }
+            }
+            str = str + '-';
+        }
+        else {
+            while (num >= 7) {
+                int div = num % 7;
+                num = num / 7;
+                str = str + div;
+                if (num < 7) {
+                    str = str + num;
+                }
+            }
+        }
+        StringBuilder res = new StringBuilder(str);
+        return res.reverse().toString();
+    }
+}
