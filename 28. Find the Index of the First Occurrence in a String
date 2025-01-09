@@ -1,0 +1,6 @@
+class Solution {
+    public int strStr(String haystack, String needle) {
+        int atIndex = haystack.indexOf(needle);
+        return atIndex >= 0 ? atIndex : -1;
+    }
+}
