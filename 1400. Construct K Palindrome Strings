@@ -1,0 +1,21 @@
+class Solution {
+    public boolean canConstruct(String s, int k) {
+        int n = s.length();
+        if (n < k) {
+            return false; // Not enough characters to form k palindromes
+        }
+
+        int bitMask = 0;
+
+        // Toggle bits for each character to track odd/even counts
+        for (char c : s.toCharArray()) {
+            bitMask ^= (1 << (c - 'a'));
+        }
+
+        // Count set bits (odd frequencies) in the bitMask
+        int oddCount = Integer.bitCount(bitMask);
+
+        // We can form k palindromes if oddCount <= k
+        return oddCount <= k;
+    }
+}
