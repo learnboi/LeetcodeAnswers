@@ -1,0 +1,53 @@
+class Solution {
+    public boolean canBeValid(String s, String locked) {
+        int n = s.length();
+        
+        // If the length is odd, it can't be valid
+        if (n % 2 != 0) {
+            return false;
+        }
+
+        boolean temp_a = false;
+        boolean temp_b = false;
+
+        // Left-to-right pass
+        int open = 0, free = 0;
+        for (int i = 0; i < n; i++) {
+            if (locked.charAt(i) == '0') {
+                free++; // Count free characters
+            } else if (s.charAt(i) == '(') {
+                open++; // Count open parentheses
+            } else { // Locked ')'
+                if (open > 0) {
+                    open--; // Match an open parenthesis
+                } else if (free > 0) {
+                    free--; // Use a free slot to act as '('
+                } else {
+                    return false; // Unmatched ')'
+                }
+            }
+        }
+
+        // Right-to-left pass
+        int close = 0;
+        free = 0;
+        for (int i = n - 1; i >= 0; i--) {
+            if (locked.charAt(i) == '0') {
+                free++; // Count free characters
+            } else if (s.charAt(i) == ')') {
+                close++; // Count closing parentheses
+            } else { // Locked '('
+                if (close > 0) {
+                    close--; // Match a closing parenthesis
+                } else if (free > 0) {
+                    free--; // Use a free slot to act as ')'
+                } else {
+                    return false; // Unmatched '('
+                }
+            }
+        }
+
+        // If both passes succeed, the string can be valid
+        return true;
+    }
+}
